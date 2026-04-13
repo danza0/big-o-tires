@@ -1,77 +1,102 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Phone } from "lucide-react";
+import { motion } from "framer-motion";
+import { Phone, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { business, awards } from "@/lib/data";
 
 export default function Hero() {
-  const [scrollPos, setScrollPos] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollPos(window.scrollY);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <section className="relative h-[500px] md:h-[600px] overflow-hidden bg-secondary-black">
-      {/* Parallax Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-75"
-        style={{
-          backgroundImage: "url('/hero-bg.jpg')",
-          transform: `translateY(${scrollPos * 0.5}px)`,
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" />
+    <section className="relative min-h-[520px] md:min-h-[600px] overflow-hidden bg-[var(--secondary-black)]">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='%23222' width='100' height='100'/%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23333' stroke-width='1'/%3E%3Ccircle cx='50' cy='50' r='20' fill='none' stroke='%23333' stroke-width='0.5'/%3E%3C/svg%3E")`,
+          }}
+        />
       </div>
 
+      {/* Red accent line */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-[var(--primary-red)] z-20" />
+
       {/* Content */}
-      <div className="relative container mx-auto px-4 h-full flex items-center">
-        <div className="max-w-2xl text-white">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            Victoria's{" "}
-            <span className="text-red-500">Best Tire</span>
+      <div className="relative z-20 container mx-auto px-4 h-full flex items-center py-16 md:py-24">
+        <div className="max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-block bg-[var(--primary-red)] text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-6"
+          >
+            #1 Rated in Victoria &mdash; 30+ Years of Service
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-[1.1]"
+          >
+            Victoria&apos;s{" "}
+            <span className="text-[var(--primary-red)]">Best Tire</span>
             <br />
-            & <span className="text-red-500">Auto Store!</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-300 mb-8">
-            Voted Victoria's Best Tire Store for 3 years straight. Over 30 years of trusted service.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <a
-              href="tel:2503847477"
-              className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-            >
-              <Phone className="w-5 h-5" />
-              Call Now: 250-384-7477
-            </a>
-            <a
+            & <span className="text-[var(--primary-red)]">Auto Store!</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg text-gray-300 mb-8 max-w-lg"
+          >
+            Voted Victoria&apos;s Best Tire Store. Over 30 years of trusted service,
+            quality workmanship, and unmatched customer care.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-wrap gap-3"
+          >
+            <Link
               href="/tires"
-              className="bg-white hover:bg-gray-100 text-secondary-black font-semibold py-3 px-6 rounded-lg transition-colors"
+              className="bg-[var(--primary-red)] hover:bg-[var(--primary-red-dark)] text-white font-semibold py-3.5 px-7 rounded-lg transition-colors flex items-center gap-2"
             >
-              Shop Tires
+              Shop Tires <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/auto-repairs"
+              className="bg-white/10 hover:bg-white/20 text-white font-semibold py-3.5 px-7 rounded-lg transition-colors backdrop-blur-sm border border-white/20"
+            >
+              Book Auto Repair
+            </Link>
+            <a
+              href={business.phoneHref}
+              className="bg-transparent hover:bg-white/10 text-white font-semibold py-3.5 px-7 rounded-lg transition-colors flex items-center gap-2 border border-white/20"
+            >
+              <Phone className="w-4 h-4" />
+              {business.phone}
             </a>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Awards Badge */}
-      <div className="absolute bottom-0 right-0 left-0 bg-white/95 py-4">
-        <div className="container mx-auto px-4 flex flex-wrap justify-center md:justify-end gap-6 items-center">
-          <div className="text-center">
-            <p className="text-xs text-gray-500">Voted</p>
-            <p className="font-bold text-secondary-black">Victoria's Best</p>
-            <p className="text-xs text-gray-500">Tire Store</p>
-          </div>
-          <div className="w-px h-10 bg-gray-300" />
-          <div className="text-center">
-            <p className="text-xs text-gray-500">BBB Rating</p>
-            <p className="font-bold text-secondary-black">A+</p>
-          </div>
-          <div className="w-px h-10 bg-gray-300" />
-          <div className="text-center">
-            <p className="text-xs text-gray-500">Experience</p>
-            <p className="font-bold text-secondary-black">30+ Years</p>
+      {/* Awards bar */}
+      <div className="relative z-20 bg-white border-t">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex flex-wrap justify-center md:justify-between items-center gap-6 md:gap-4">
+            {awards.map((award, i) => (
+              <div key={i} className="text-center px-4">
+                <p className="text-2xl font-extrabold text-[var(--secondary-black)]">{award.title}</p>
+                <p className="text-sm font-semibold text-gray-700">{award.subtitle}</p>
+                <p className="text-xs text-gray-400">{award.detail}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

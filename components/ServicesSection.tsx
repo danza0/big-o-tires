@@ -1,66 +1,55 @@
-import { Wrench, Car, Truck, Droplet } from "lucide-react";
-import Link from "next/link";
+"use client";
 
-const services = [
-  {
-    icon: Droplet,
-    title: "Oil Changes",
-    description: "Full synthetic, conventional, and high-mileage oil changes",
-    href: "/auto-repairs/oil-change",
-    color: "bg-red-600",
-  },
-  {
-    icon: Wrench,
-    title: "Brake Services",
-    description: "Complete brake inspection, repair, and replacement",
-    href: "/auto-repairs/brake-service",
-    color: "bg-secondary-black",
-  },
-  {
-    icon: Car,
-    title: "Lift & Leveling Kits",
-    description: "Custom lift and leveling kit installation",
-    href: "/auto-repairs/lift-leveling-kits",
-    color: "bg-red-600",
-  },
-  {
-    icon: Truck,
-    title: "Fleet Services",
-    description: "Comprehensive fleet maintenance and repair",
-    href: "/auto-repairs/fleet-services",
-    color: "bg-secondary-black",
-  },
-];
+import Link from "next/link";
+import { Droplet, Disc3, ArrowRight } from "lucide-react";
+import AnimatedSection from "@/components/ui/AnimatedSection";
 
 export default function ServicesSection() {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-[var(--accent-gray)]">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-secondary-black mb-4">
-            Oil Changes <span className="text-red-600">&</span> Brake Services
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Professional auto repair services you can trust. From routine maintenance to major repairs.
-          </p>
-        </div>
+        <AnimatedSection>
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--secondary-black)]">
+              Oil Changes <span className="text-[var(--primary-red)]">&</span> Brake Services
+            </h2>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto">
+              Professional auto repair services you can trust. From routine maintenance to major repairs.
+            </p>
+          </div>
+        </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service) => (
+        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <AnimatedSection delay={0.1}>
             <Link
-              key={service.title}
-              href={service.href}
-              className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all p-6 text-center hover:-translate-y-1"
+              href="/auto-repairs/oil-change"
+              className="group relative overflow-hidden bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-8 flex flex-col items-center text-center"
             >
-              <div className={`${service.color} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                <service.icon className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 rounded-2xl bg-[var(--primary-red)] flex items-center justify-center mb-5">
+                <Droplet className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-secondary-black mb-2 group-hover:text-red-600 transition-colors">
-                {service.title}
-              </h3>
-              <p className="text-gray-600 text-sm">{service.description}</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Oil Changes</h3>
+              <p className="text-gray-500 text-sm mb-4">Full synthetic, conventional, and high-mileage oil changes with complimentary multi-point inspection.</p>
+              <span className="text-[var(--primary-red)] font-semibold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                Learn More <ArrowRight className="w-4 h-4" />
+              </span>
             </Link>
-          ))}
+          </AnimatedSection>
+          <AnimatedSection delay={0.2}>
+            <Link
+              href="/auto-repairs/brake-service"
+              className="group relative overflow-hidden bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-8 flex flex-col items-center text-center"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-[var(--secondary-black)] flex items-center justify-center mb-5">
+                <Disc3 className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Brake Services</h3>
+              <p className="text-gray-500 text-sm mb-4">Complete brake inspection, repair, and replacement. Quality parts with satisfaction guarantee.</p>
+              <span className="text-[var(--primary-red)] font-semibold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                Learn More <ArrowRight className="w-4 h-4" />
+              </span>
+            </Link>
+          </AnimatedSection>
         </div>
       </div>
     </section>
